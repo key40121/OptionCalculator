@@ -12,7 +12,7 @@ namespace optioncalc
 class OptionCalc
 {
 public:
-    // Singleton
+    // TBD Singleton
 
     void optionSet(std::unique_ptr<Option> operation);
     double compute();

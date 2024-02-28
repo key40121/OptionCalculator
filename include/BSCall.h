@@ -9,12 +9,11 @@
 namespace optioncalc
 {
 
-class BSCall : public Option // Base class
+class BSCall : public Option
 {
-public:
+public: // TODO
 
-    template<typename T>
-    explicit BSCall(T&& data) : mData(std::forward<T>(data)) {}
+    explicit BSCall(optioncalc::def::OptionData data) : mData(data) {}
 
     double compute() override;
 

@@ -6,6 +6,7 @@
 #include "OptionCalc.h"
 #include "OptionDef.h"
 #include "util.h"
+#include "Logger.h"
 
 int main()
 {
@@ -23,6 +24,13 @@ int main()
     // Strategy pattern => Just passing a class
     calculator.optionSet(std::move(mCCall));
     calculator.compute();
+
+    std::string temp{"Ttemp"};
+    Logger::INFO(temp);
+    Logger::ERROR(temp);
+    Logger::INFO(temp);
+
+
 
     return 0;
 }

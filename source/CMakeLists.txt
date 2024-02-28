@@ -3,6 +3,7 @@ add_library(liboption
     BSCall.cpp
     MonteCarloCall.cpp
     OptionCalc.cpp
+    Logger.cpp
 )
 
 target_compile_options(liboption PUBLIC -std=c++20)

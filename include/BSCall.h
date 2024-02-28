@@ -17,6 +17,12 @@ public: // TODO
 
     double compute() override;
 
+    /* Greek  sensitivity */
+    double getDelta();
+    double getVega();
+    double getRho();
+    double getTheta();
+
 private:
     optioncalc::def::OptionData mData;
 };

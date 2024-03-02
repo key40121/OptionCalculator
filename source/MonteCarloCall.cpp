@@ -5,6 +5,7 @@
 
 #include "MonteCarloCall.h"
 #include "util.h"
+#include "Logger.h"
 
 namespace optioncalc
 {
@@ -21,7 +22,7 @@ double MonteCarloCall::compute()
     double retSum = std::accumulate(mRetStore.cbegin(), mRetStore.cend(), 0.0);
     double ret = retSum / mRetStore.size();
 
-    std::cout << __func__ << " | Call Premium : " <<  ret << std::endl;
+    Logger::INFO("Call Premium by monte carlo simulation : " + std::to_string(ret));
 
     return ret;
 }
@@ -46,12 +47,12 @@ double MonteCarloCall::calcCallPrice()
 
 double MonteCarloCall::calcCallPriceStepsThrough()
 {
-    std::cout << "spotprice : " << mData.spotPrice << " | ";
+    // std::cout << "spotprice : " << mData.spotPrice << " | ";
     double ret;
     for (int j=0; j<mData.numberOfPaths; j++)
     {
         ret = calcCallPrice();
-        std::cout << ret << " | ";
+        // std::cout << ret << " | ";
         stepPrice = ret;
     }
 
@@ -59,8 +60,7 @@ double MonteCarloCall::calcCallPriceStepsThrough()
     double thisPayOff = stepPrice - mData.strike;
     thisPayOff = std::max(thisPayOff, 0.0);
 
-    std::cout << "Call Premium : " << thisPayOff;
-    std::cout << "\n";
+    Logger::DEBUG("Long Call Price : " + std::to_string(thisPayOff));
 
     mRetStore.push_back(thisPayOff); // Done
     stepPrice = mData.spotPrice; // Reset

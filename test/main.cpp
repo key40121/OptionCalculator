@@ -25,12 +25,5 @@ int main()
     calculator.optionSet(std::move(mCCall));
     calculator.compute();
 
-    std::string temp{"Ttemp"};
-    Logger::INFO(temp);
-    Logger::ERROR(temp);
-    Logger::INFO(temp);
-
-
-
     return 0;
 }

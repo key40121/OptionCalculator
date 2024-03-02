@@ -11,17 +11,17 @@ int main()
 {
     optioncalc::OptionData data = optioncalc::util::optionDataInit();
     auto bsCall = std::make_unique<optioncalc::BSCall>(data);
-    bsCall->compute();
 
     optioncalc::MonteCarloOptionData montedata = optioncalc::util::monteCarloOptionDataInit();
     auto mCCall = std::make_unique<optioncalc::MonteCarloCall>(montedata);
 
     optioncalc::OptionCalc calculator;
 
-    // calculator.optionSet(std::move(bsCall));
-    // calculator.compute();
+    /* strategy : Pass instance */
 
-    // Strategy pattern => Just passing a class
+    calculator.optionSet(std::move(bsCall));
+    calculator.compute();
+
     calculator.optionSet(std::move(mCCall));
     calculator.compute();
 

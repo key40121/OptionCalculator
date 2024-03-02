@@ -5,13 +5,26 @@
 #include <vector>
 
 #include "Option.h"
-#include "OptionDef.h"
 
 namespace optioncalc
 {
 
+static constexpr int NUMBER_OF_PATHS = 4;
+static constexpr int NUMBER_OF_TRIALS = 10;
+
+struct MonteCarloOptionData
+{
+    double expiry; // t
+    double strike; // K
+    double spotPrice; // S 
+    double volatility; // σ
+    double riskFreeRate; // r
+    int numberOfPaths; // number of steps, paths
+    int numberOfTrials; // number of trials of this experiments
+};
+
 template<typename T>
-concept MonteCarloData = std::is_convertible_v<T, optioncalc::def::MonteCarloOptionData>;
+concept MonteCarloData = std::is_convertible_v<T, MonteCarloOptionData>;
 
 class MonteCarloCall : public Option
 {
@@ -26,7 +39,7 @@ public:
         : mData(std::forward<T>(data)) {}
 
     // Copy ctr
-    MonteCarloCall(const MonteCarloCall& rhs) : mData(mData), mRetStore(mRetStore) {}
+    MonteCarloCall(const MonteCarloCall& rhs) : mData(rhs.mData), mRetStore(rhs.mRetStore) {}
 
     // Copy assignment
     MonteCarloCall& operator=(const MonteCarloCall& rhs)
@@ -64,7 +77,7 @@ public:
     double compute() override;
 
 private:
-    optioncalc::def::MonteCarloOptionData mData;
+    MonteCarloOptionData mData;
     std::vector<CallPremium> mRetStore;
 
     // variables needed to calculate.

@@ -3,7 +3,8 @@
 
 #include <random>
 
-#include "OptionDef.h"
+#include "BSCall.h"
+#include "MonteCarloCall.h"
 
 namespace optioncalc::util
 {
@@ -12,16 +13,30 @@ namespace optioncalc::util
         return 1.0;
     }
 
-    inline optioncalc::def::MonteCarloOptionData monteCarloOptionDataInit()
+    inline constexpr optioncalc::OptionData optionDataInit()
     {
-        optioncalc::def::MonteCarloOptionData data = {};
+
+        optioncalc::OptionData data = {};
+        data.expiry = 1.0; // t = 1;
+        data.spotPrice = 100.0; // S = 100;
+        data.volatility = 0.20; // σ = 20%;
+        data.riskFreeRate = 0.0121; // r = 1.21%;
+        data.strike = 100; // K = 100.21
+        data.dividentYield = 0.01;
+
+        return data;
+    }
+
+    inline constexpr optioncalc::MonteCarloOptionData monteCarloOptionDataInit()
+    {
+        optioncalc::MonteCarloOptionData data = {};
         data.expiry = 1.0; // t = 1;
         data.spotPrice = 100.0; // S = 100;
         data.volatility = 0.20; // σ = 20%;
         data.riskFreeRate = 0.0121; // r = 1.21%;
         data.strike = 100.21; // K = 100.21
-        data.numberOfPaths = optioncalc::def::NUMBER_OF_PATHS;
-        data.numberOfTrials = optioncalc::def::NUMBER_OF_TRIALS;
+        data.numberOfPaths = optioncalc::NUMBER_OF_PATHS;
+        data.numberOfTrials = optioncalc::NUMBER_OF_TRIALS;
 
         return data;
     }
